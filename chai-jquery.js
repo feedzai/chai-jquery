@@ -1,18 +1,9 @@
-(function (chaiJquery) {
-  // Module systems magic dance.
-  if (typeof require === "function" && typeof exports === "object" && typeof module === "object") {
-    // NodeJS
-    module.exports = chaiJquery;
-  } else if (typeof define === "function" && define.amd) {
-    // AMD
-    define(function () {
-      return chaiJquery;
-    });
-  } else {
-    // Other environment (usually <script> tag): plug in to global chai instance directly.
-    chai.use(chaiJquery);
-  }
-}(function (chai, utils) {
+//ATTENTION: Originally this plugin always assumed jQuery to be available globally event when it
+//registered itself with AMD. Given that we don't have jQuery available globally (which is awesome)
+//I had to remove the module registering code and implemented decent AMD support.
+define(['jquery'], function (jQuery) {
+
+var chaiJquery = function (chai, utils) {
   var inspect = utils.inspect,
       flag = utils.flag;
 
@@ -229,4 +220,8 @@
       }
     }
   });
-}));
+};
+
+    return chaiJquery;
+
+});
